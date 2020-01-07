@@ -128,12 +128,12 @@ export class HomeComponent implements OnInit {
   }
   seeFlight (cliente:any){
     console.log(cliente);
-    this.dataService.mostrarFlight(cliente)
+    /*this.dataService.mostrarFlight(cliente)
     .subscribe(res=>{
         console.log(res)
-    })
+    })*/
     
-    //window.open(`https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2F${cliente}?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
+    window.open(`https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2F${cliente}?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
     //window.open(`/flights/img/${cliente}`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
     return
   }

@@ -33,7 +33,7 @@ mongoose.connect('mongodb+srv://jonasoft:Yi8FBQscLZPF5MmW@cluster0-bw4ak.mongodb
 
 app.listen(process.env.PORT, async() => {
     console.log('Escuchando puerto: ', process.env.PORT);
-    /*await carga.cargaMasiva((err) => {
+    await carga.cargaMasiva((err) => {
         if (err) console.log(err);
-    });*/
+    });
 });
