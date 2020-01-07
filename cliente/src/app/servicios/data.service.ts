@@ -83,9 +83,12 @@ export class DataService {
   mostrarFlight(cliente:any){
       console.log(cliente);
 
-      this.http.get(this.URL_API +`/img/${cliente}`)
+      let res =this.http.get(`https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2F${cliente}?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b`)
+      //https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2FAM693802-12-2019.jpg?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b
+      //https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2FAM693802-12-2019.jpg?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b
       
      //return cliente.img
+     return res
   }
 
 }

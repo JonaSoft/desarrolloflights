@@ -5,7 +5,11 @@ import { Flights } from '../../models/flights';
 import { ExporterService } from '../../servicios/enviarhacia.service';
 import { AuthService } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
+/*Firebase*/
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
+export interface Item { nombre: string; url:string; }
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,22 +31,30 @@ export class HomeComponent implements OnInit {
     view:boolean=true;
     hide:boolean=false;
     data:Flights[]=[];
+    //Firebase
+    private itemsCollection: AngularFirestoreCollection<Item>;
+    items: Observable<Item[]>;
+    /////////////////////////////////
     constructor(private dataService:DataService,
       private aExcel: ExporterService,
       private auth: AuthService,
-      private router: Router) {
-  
-  this.forma = new FormGroup({
-      'market':new FormControl(''),
-      'flightini':new FormControl(''),
-      'codope':new FormControl(''),
-      'flightope':new FormControl(''),
-      'origen':new FormControl(''),
-      'destino':new FormControl(''),
-      'fechainit': new FormControl('')
-  })
-  
-  }
+      private router: Router,
+      private afs: AngularFirestore) {
+        //Firebase    
+        this.itemsCollection = afs.collection<Item>('img');
+        this.items = this.itemsCollection.valueChanges();
+        ///////////////////////////////////////////////////
+        this.forma = new FormGroup({
+            'market':new FormControl(''),
+            'flightini':new FormControl(''),
+            'codope':new FormControl(''),
+            'flightope':new FormControl(''),
+            'origen':new FormControl(''),
+            'destino':new FormControl(''),
+            'fechainit': new FormControl('')
+        })
+    }
+
   ngOnInit() {
       console.log('ingresa a validacion')
       this.auth.leerToken()
@@ -117,7 +129,12 @@ export class HomeComponent implements OnInit {
   seeFlight (cliente:any){
     console.log(cliente);
     this.dataService.mostrarFlight(cliente)
-    window.open(`/flights/img/${cliente}`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
+    .subscribe(res=>{
+        console.log(res)
+    })
+    
+    //window.open(`https://firebasestorage.googleapis.com/v0/b/app-chat-2da1c.appspot.com/o/img%2F${cliente}?alt=media&token=546df765-a7ab-436b-80a9-0d289b3bc68b`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
+    //window.open(`/flights/img/${cliente}`, "","directories=yes, location=yes, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=950, height=650"); 
     return
   }
   buscaWeb(clientes:any){
